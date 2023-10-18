@@ -123,7 +123,7 @@ foreach ($tableData as $tableName => $tableProperties) {
         $referencedColumnName = $hasManyClass['referencedColumnName'];
 
         $modelContent .= "    public function " . lcfirst($referencedTableCamelCase) . "s() {\n";
-        $modelContent .= "        return \$this->hasMany(App\\$referencedTableCamelCase::class, '$localColumnName', '$referencedColumnName');\n";
+        $modelContent .= "        return \$this->hasMany(App\\Models\\$referencedTableCamelCase::class, '$localColumnName', '$referencedColumnName');\n";
         $modelContent .= "    }\n\n";
     }
 
