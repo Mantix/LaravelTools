@@ -1,10 +1,10 @@
 <?php
 
-$host = "localhost";       // Database host
-$dbname = "";       // Database name
+$host = "";       // Database host
+$dbname = "";     // Database name
 $username = "";   // Database username
 $password = "";   // Database password
-$prefix = ""; // Database table prefix
+$prefix = "";     // Database table prefix
 
 $dataTypeMapping = [
     'tinyint() unsigned' => 'unsignedTinyInteger',
@@ -45,7 +45,8 @@ $tables = $pdo->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
 
 foreach ($tables as $table) {
     $tableWithoutPrefix = str_replace($prefix, '', $table);
-    $migrationName = 'Create' . ucwords($tableWithoutPrefix) . 'Table';
+    $tableCamelCase = str_replace(' ', '', ucwords(str_replace('_', ' ', $tableWithoutPrefix)));
+    $migrationName = 'Create' . $tableCamelCase . 'Table';
     $fileName = date('Y_m_d_His') . '_create_' . strtolower($tableWithoutPrefix) . '_table.php';
 
     $columns = $pdo->query("DESCRIBE $table")->fetchAll(PDO::FETCH_ASSOC);
